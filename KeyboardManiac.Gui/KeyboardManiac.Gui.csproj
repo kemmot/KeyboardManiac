@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{802221CC-443C-45B7-AC60-67AD2DCE2884}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KeyboardManiac.Gui</RootNamespace>
+    <AssemblyName>KeyboardManiac.Gui</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\ThirdParty\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Management.Automation" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdvancedErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvancedErrorForm.Designer.cs">
+      <DependentUpon>AdvancedErrorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalHotKey2.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimpleErrorForm.Designer.cs">
+      <DependentUpon>SimpleErrorForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdvancedErrorForm.resx">
+      <DependentUpon>AdvancedErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SimpleErrorForm.resx">
+      <DependentUpon>SimpleErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KeyboardManiac.Core\KeyboardManiac.Core.csproj">
+      <Project>{083BF676-7A1C-4029-8E81-45AC5C8AC026}</Project>
+      <Name>KeyboardManiac.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Plugins.FileSystemSearch\KeyboardManiac.Plugins.FileSystemSearch.csproj">
+      <Project>{6F7FB0BC-BA88-40E6-AED2-7CD57FE90A93}</Project>
+      <Name>KeyboardManiac.Plugins.FileSystemSearch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Plugins.Powershell\KeyboardManiac.Plugins.Powershell.csproj">
+      <Project>{4B4096F6-CEC4-4D28-A2E4-A0CEA96C134C}</Project>
+      <Name>KeyboardManiac.Plugins.Powershell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Plugins.ShellExecute\KeyboardManiac.Plugins.ShellExecute.csproj">
+      <Project>{FDDBFC21-9ECA-4580-BA1E-442FC72230D9}</Project>
+      <Name>KeyboardManiac.Plugins.ShellExecute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Plugins.TaskSwitcher\KeyboardManiac.Plugins.TaskSwitcher.csproj">
+      <Project>{FEF5BFC9-32EF-4BA0-9DB7-4B1EC6878BF1}</Project>
+      <Name>KeyboardManiac.Plugins.TaskSwitcher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Sdk\KeyboardManiac.Sdk.csproj">
+      <Project>{6FE3AD87-97F9-4BEC-9986-8162E2686BA5}</Project>
+      <Name>KeyboardManiac.Sdk</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\keyboard.ico" />
+    <EmbeddedResource Include="ReleaseNotes.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

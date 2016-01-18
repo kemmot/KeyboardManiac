@@ -1,0 +1,94 @@
+﻿#27 Feature: Changed result list to multi-column list view.
+#19 Feature: Ability to boost score of certain plugin instances.
+#24 Bug    : When pressing the up key on the top item of the result listview it does not change focus to the search box.
+#25 Feature: Change status when search starts.
+#26 Bug    : When no matches found results from previous search are displayed.
+#28 Bug    : Some start menu items not being found.
+#29 Bug    : NullReferenceException is sometimes thrown when searching.
+#30 Feature: Add setting file location to about dialog.
+#3  Feature: Boost score of executed matches.
+
+Changed to source forge bug tracking system.
+
+0.6.1.0 (2012-11-08)
+--------------------
+Feature #7: Add custom exception dialog with simple message but advance view of exception
+Feature #8: Add copy to clipboard function to custom exception dialog
+Feature #9: Add save to file function to custom exception dialog
+Feature #10: Add loaded assemblies dump to advanced view of custom exception dialog
+Feature #16: Compile release notes into app for display on about dialog
+Feature #17: Search completion notification should list how many matches were found
+Feature #23: Should have option to enable filling the input box with clipboard contents and highlight all
+Feature #95: Add copy to clipboard function to about dialog
+Feature #96: Add save to file function to about dialog
+
+0.6.0.0 (2012-11-07)
+--------------------
+Feature #30: Add ability to have multiple semi-colon delimited file masks
+Feature #32: Add ability to have multiple semi-colon delimited folders
+Feature #34: Add ability to have multiple semi-colon delimited special folders
+Feature #94: Make one thread per search plugin
+
+0.5.0.0 (2012-10-18)
+--------------------
+Bug     #88: Subfolder recursion in file system searches does not work
+Bug     #89: Set a default FolderDepth of 2
+Bug     #90: Add IncludeFolders as a GlobalSetting to the default setting file
+Bug     #91: Configuration refresh doesn’t reset global hotkeys
+Bug     #92: Reloading configuration adds to the plugins rather than replacing them
+Bug     #93: When initialisation plugins using reflection it should not throw a warning on the 'name' setting
+Feature #85: Doesn’t work with minimised applications
+Feature #86: When main window is activated it should focus the input box
+Feature #87: Use plugin as ThreadContext for logging while searching
+
+0.4.0.0 (2012-10-17)
+--------------------
+Feature #64: Should set the start-up folder of the target executable to be its own folder
+Feature #65: Improve logs by plugin instances being allocated a name to be displayed in a ToString override in PluginBase
+Feature #66: Command plugins should print the command to the output window before the results
+Feature #67: Notify the user when command plugins have completed by changing the status to "Done"
+Feature #68: Should list folders
+Feature #69: Should check for parent folder if the command text does not exactly match a folder
+Feature #70: Should accept file masks
+Feature #71: Pressing the right arrow key on a search result places it into the input box
+Feature #72: Improve user messages for plugin initialisation
+Feature #73: After running a command put focus back on input box
+Feature #74: Should not error when passed invalid paths that were meant for other plugins
+Feature #75: Should support one or more profile scripts to run in order at start-up
+Feature #76: Need a search folder for looking in standard user folders e.g. my docs, start menu, etc
+Feature #77: Should have IncludeHiddenItems setting to ignore or include hidden items
+Feature #78: Allow user to add plugin aliases through configuration
+Feature #81: Should add the item type and source plugin to search results
+Feature #82: Searches can now display a short name while still being able to open a fully qualified path
+Feature #83: Add a command for displaying, filtering and switching between apps
+Feature #84: Monitor the settings file for changes and immediately use the changed settings
+
+0.3.0.0 (2012-10-11)
+--------------------
+Feature #61: Automatically switch to the output tab after running a command
+Feature #62: Automatically switch to the results tab after search results are shown
+Feature #63: Change results text box to use a fixed width font
+
+0.2.0.0 (2012-10-11)
+--------------------
+Bug     #50: Add about box
+Bug     #60: Lots of ThreadAbortExceptions are logged when performing searches whilst still typing
+Feature #51: Ensure that failures to load the settings file are logged
+Feature #52: Ensure that failures to load the settings file do not kill the app
+Feature #53: Ensure that failures to load plugins are logged
+Feature #54: Ensure that failures to load a plugin do not kill the app
+Feature #55: Add a log4net configuration file
+Feature #56: Ensure that failures to load the log4net configuration file are logged to a default error file
+Feature #57: Add a setting to enable minimising to the system tray
+Feature #58: Add a setting to enable minimising the form on losing focus
+Feature #59: Add setting for disabling the logging of UnauthorizedAccessException
+
+0.1.0.0 (2012-10-10)
+--------------------
+Bug     #46: Need to make search text combo box auto completion suggest only, no append
+Bug     #48: Pressing down key in search box selects 1st result before focusing results
+Feature #43: Ability to run commands asynchronously
+Feature #44: Prefix a command with a minus sign to make it synchronous
+Feature #45: Pressing down in the search box jumps to the results list
+Feature #47: Add path completion to list results to replace combo box auto completion
+Feature #49: Pressing enter on a result executes the result as a command

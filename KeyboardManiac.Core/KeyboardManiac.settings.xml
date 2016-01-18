@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<KeyboardManiac>
+  <Gui>
+    <Setting key="MinimiseOnLosingFocus"       value="False" />
+    <Setting key="MinimiseToSystemTray"        value="False" />
+    <Setting key="UseClipboardForCommandText"  value="False" />
+  </Gui>
+  <Engine>
+    <GlobalSetting key="MaxFolderDepth"                 value="2" />
+    <GlobalSetting key="IncludeFolders"                 value="False" />
+    <GlobalSetting key="IncludeHiddenItems"             value="False" />
+    <GlobalSetting key="LogUnauthorizedAccessException" value="False" />
+    <GlobalSetting key="SearchThreadCount"              value="10" />
+    <GlobalSetting key="UseShortNames"                  value="True" />
+  </Engine>
+  <Hotkeys>
+    <Hotkey key="End" modifier="CTRL" />
+  </Hotkeys>
+  <PluginTypes>
+    <PluginType id="1" class="KeyboardManiac.Plugins.Powershell.PowershellCommand, KeyboardManiac.Plugins.Powershell" />
+    <PluginType id="2" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
+    <PluginType id="3" class="KeyboardManiac.Plugins.FileSystemSearch.FileSystemSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
+    <PluginType id="4" class="KeyboardManiac.Plugins.FileSystemSearch.FileSystemAbsoluteSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
+    <!-- Possible value of SpecialFolderSearchPlugin.SpecialFolder:
+        AdminTools, ApplicationDatam, CDBurning, CommonAdminTools, CommonApplicationData, CommonDesktopDirectory,
+        CommonDocuments, CommonMusic, CommonOemLinks, CommonPictures, CommonProgramFiles, CommonProgramFilesX86,
+        CommonPrograms, CommonStartMenu, CommonStartup, CommonTemplates, CommonVideos, Cookies, Desktop,
+        DesktopDirectory, Favorites, Fonts, History, InternetCache, LocalApplicationData, LocalizedResources, 
+        MyComputer, MyDocuments, MyMusic, MyPictures, MyVideos, NetworkShortcuts, Personal, PrinterShortcuts,
+        ProgramFiles, ProgramFilesX86, Programs, Recent, Resources, SendTo, StartMenu, Startup, System, SystemX86,
+        Templates, UserProfile, Windows
+        -->
+    <PluginType id="5" class="KeyboardManiac.Plugins.FileSystemSearch.SpecialFolderSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
+    <PluginType id="6" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSearcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
+    <PluginType id="7" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSwitcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
+  </PluginTypes>
+  <Plugins>
+    <!--<Plugin typeId="3">
+      <Setting key="Folder" value="<location>" />
+      <Setting key="IncludeFileMask" value="*.snippet" />
+    </Plugin>
+    <Plugin typeId="2" />
+    <Plugin typeId="4" />
+    
+    ProgramFiles;ProgramFilesX86;System;SystemX86
+    -->
+
+    <Plugin typeId="5" name="Shortcut search">
+      <Setting key="SpecialFolder" value="StartMenu;CommonStartMenu" />
+      <Setting key="IncludeFileMask" value="*.lnk;*.exe" />
+      <Setting key="ScoreAdjustment" value="200" />
+      <Setting key="MaxFolderDepth" value="-1" />
+    </Plugin>
+    
+    <!--
+    <Plugin typeId="5" name="My documents search">
+      <Setting key="SpecialFolder" value="MyDocuments" />
+      <Setting key="IncludeFileMask" value="*" />
+    </Plugin>
+    <Plugin typeId="5" name="Install programs search">
+      <Setting key="SpecialFolder" value="ProgramFiles" />
+      <Setting key="IncludeFileMask" value="*.exe" />
+      <Setting key="ScoreAdjustment" value="100" />
+    </Plugin>
+    <Plugin typeId="5" name="Shortcut search">
+      <Setting key="SpecialFolder" value="Recent;Favorites" />
+      <Setting key="IncludeFileMask" value="*.lnk" />
+      <Setting key="ScoreAdjustment" value="50" />
+    </Plugin>
+    -->
+    
+    <!--<Plugin typeId="6">
+      <Alias name="TS" />
+    </Plugin>
+    <Plugin typeId="7" />
+    <Plugin typeId="1">
+      <Alias name="PS" />
+      <Alias name=">" />
+      <StartupScript path=<location>" />
+    </Plugin>-->
+  </Plugins>
+</KeyboardManiac>
