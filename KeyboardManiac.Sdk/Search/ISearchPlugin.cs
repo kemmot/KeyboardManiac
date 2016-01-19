@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KeyboardManiac.Sdk
+namespace KeyboardManiac.Sdk.Search
 {
     /// <summary>
     /// The interface that must be implemented to provide search plugins to the keyboard maniac engine.

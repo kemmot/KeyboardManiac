@@ -11,6 +11,6 @@
         /// </summary>
         /// <param name="location">The location to load the settings from.</param>
         /// <returns>The loaded settings.</returns>
-        abstract public KeyboardManiacSettings Load(string filename);
+        abstract public ApplicationDetails Load(string filename);
     }
 }

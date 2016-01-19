@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 namespace KeyboardManiac.Plugins.FileSystemSearch
 {

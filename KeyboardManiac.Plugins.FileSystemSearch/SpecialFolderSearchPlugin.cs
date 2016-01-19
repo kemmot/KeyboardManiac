@@ -20,6 +20,9 @@ namespace KeyboardManiac.Plugins.FileSystemSearch
         {
         }
 
+        [Setting]
+        public string SpecialFolder { get; set; }
+
         /// <summary>
         /// Gives the plugin an oportunity to handle the command text.
         /// </summary>
@@ -31,43 +34,77 @@ namespace KeyboardManiac.Plugins.FileSystemSearch
             request.CanHandleCommand = true;
             return request;
         }
+
         /// <summary>
-        /// Allows a plugin to handle parsed settings.
+        /// Allows a plugin to run post initialisation checks.
         /// </summary>
-        /// <param name="settingName">The name of the setting to handle.</param>
-        /// <param name="settingValue">The value of the setting to handle.</param>
-        override protected bool DoInitialiseSetting(string settingName, string settingValue)
+        /// <remarks>
+        /// Any exception thrown from this method will prevent the plugin from being used.
+        /// </remarks>
+        protected override void PostInitialiseCheck()
         {
-            bool initialised = base.DoInitialiseSetting(settingName, settingValue);
-            if (!initialised)
+            if (SpecialFolder == null) throw new NullReferenceException("SpecialFolder cannot be null");
+
+            string folder = string.Empty;
+            string[] specialFolders = SpecialFolder.Split(';');
+            foreach (string specialFolder in specialFolders)
             {
-                switch (settingName)
+                Environment.SpecialFolder specialFolderType;
+                if (!Enum.TryParse<Environment.SpecialFolder>(specialFolder, true, out specialFolderType))
                 {
-                    case "SpecialFolder":
-                        string folder = string.Empty;
-                        string[] specialFolders = settingValue.Split(';');
-                        foreach (string specialFolder in specialFolders)
-                        {
-                            Environment.SpecialFolder specialFolderType;
-                            if (!Enum.TryParse<Environment.SpecialFolder>(specialFolder, true, out specialFolderType))
-                            {
-                                string message = string.Format(
-                                    "Failed parsing SpecialFolder type: {0}",
-                                    specialFolder);
-                                throw new Exception(message);
-                            }
-                            if (!string.IsNullOrEmpty(folder))
-                            {
-                                folder += ";";
-                            }
-                            folder += Environment.GetFolderPath(specialFolderType);
-                        }
-                        Folder = folder;
-                        initialised = true;
-                        break;
+                    string message = string.Format(
+                        "Failed parsing SpecialFolder type: {0}",
+                        specialFolder);
+                    throw new Exception(message);
                 }
+                if (!string.IsNullOrEmpty(folder))
+                {
+                    folder += ";";
+                }
+                folder += Environment.GetFolderPath(specialFolderType);
             }
-            return initialised;
+            Folder = folder;
+
+            base.PostInitialiseCheck();
         }
+
+        ///// <summary>
+        ///// Allows a plugin to handle parsed settings.
+        ///// </summary>
+        ///// <param name="settingName">The name of the setting to handle.</param>
+        ///// <param name="settingValue">The value of the setting to handle.</param>
+        //override protected bool DoInitialiseSetting(string settingName, string settingValue)
+        //{
+        //    bool initialised = base.DoInitialiseSetting(settingName, settingValue);
+        //    if (!initialised)
+        //    {
+        //        switch (settingName)
+        //        {
+        //            case "SpecialFolder":
+        //                string folder = string.Empty;
+        //                string[] specialFolders = settingValue.Split(';');
+        //                foreach (string specialFolder in specialFolders)
+        //                {
+        //                    Environment.SpecialFolder specialFolderType;
+        //                    if (!Enum.TryParse<Environment.SpecialFolder>(specialFolder, true, out specialFolderType))
+        //                    {
+        //                        string message = string.Format(
+        //                            "Failed parsing SpecialFolder type: {0}",
+        //                            specialFolder);
+        //                        throw new Exception(message);
+        //                    }
+        //                    if (!string.IsNullOrEmpty(folder))
+        //                    {
+        //                        folder += ";";
+        //                    }
+        //                    folder += Environment.GetFolderPath(specialFolderType);
+        //                }
+        //                Folder = folder;
+        //                initialised = true;
+        //                break;
+        //        }
+        //    }
+        //    return initialised;
+        //}
     }
 }

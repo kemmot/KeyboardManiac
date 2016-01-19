@@ -30,6 +30,6 @@
         /// Configures the engine.
         /// </summary>
         /// <param name="settings">The settings to initialise the engine with.</param>
-        void Configure(KeyboardManiacSettings settings);
+        void Configure(ApplicationDetails settings);
     }
 }

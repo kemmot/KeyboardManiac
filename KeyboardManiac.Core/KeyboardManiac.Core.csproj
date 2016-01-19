@@ -49,23 +49,31 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Config\KeyboardManiacSettings.cs">
-      <DependentUpon>KeyboardManiacSettings.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Config\KeyboardManiacSettings_Extensions.cs" />
-    <Compile Include="Config\KeyboardManiacSettings_KeyboardManiacSettingsHotkey.cs" />
-    <Compile Include="Config\KeyboardManiacSettings_SettingCollection.cs" />
+    <Compile Include="Config\AliasDetails.cs" />
+    <Compile Include="Config\GlobalDetails.cs" />
+    <Compile Include="Config\HotKeyDetails.cs" />
+    <Compile Include="Config\Setting.cs" />
+    <Compile Include="Config\SettingsCollection.cs" />
+    <Compile Include="Config\SettingScopes.cs" />
     <Compile Include="Config\XmlFileEngineConfigurator.cs" />
     <Compile Include="Config\EngineConfiguratorBase.cs" />
-    <Compile Include="Config\GuiSettings.cs" />
+    <Compile Include="Config\GuiDetails.cs" />
     <Compile Include="Config\IEngineConfigurator.cs" />
     <Compile Include="Config\ISettingsSerialiser.cs" />
     <Compile Include="Config\PluginDetails.cs" />
     <Compile Include="Config\PluginTypeDetails.cs" />
-    <Compile Include="Config\Settings.cs" />
+    <Compile Include="Config\ApplicationDetails.cs" />
     <Compile Include="Config\SettingsException.cs" />
     <Compile Include="Config\SettingsSerialiserBase.cs" />
     <Compile Include="Config\XmlSettingsSerialiser.cs" />
+    <Compile Include="Config\Xsd\KeyboardManiacSettings.cs">
+      <DependentUpon>KeyboardManiacSettings.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Xsd\KeyboardManiacSettings_Extensions.cs" />
+    <Compile Include="Config\Xsd\KeyboardManiacSettings_KeyboardManiacSettingsGuiSettings.cs" />
+    <Compile Include="Config\Xsd\KeyboardManiacSettings_KeyboardManiacSettingsHotkey.cs" />
+    <Compile Include="Config\Xsd\KeyboardManiacSettings_Setting.cs" />
+    <Compile Include="Config\Xsd\KeyboardManiacSettings_SettingCollection.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineBase.cs" />
     <Compile Include="GlobalHotKey.cs" />
@@ -82,19 +90,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\KeyboardManiacSettings.bat" />
-    <None Include="Config\KeyboardManiacSettings.xsd">
+    <None Include="Config\KeyboardManiac.log4net.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\KeyboardManiac.settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="KeyboardManiac.log4net.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="KeyboardManiac.settings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="Config\Xsd\KeyboardManiacSettings.bat" />
+    <None Include="Config\Xsd\KeyboardManiacSettings.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Config\Xml\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

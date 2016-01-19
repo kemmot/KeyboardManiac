@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using System.Xml.Serialization;
 
 using KeyboardManiac.Sdk;
 
@@ -12,7 +11,7 @@ namespace KeyboardManiac.Core.Config
 {
     public class XmlFileEngineConfigurator : EngineConfiguratorBase
     {
-        private const string DefaultFilename = "Settings.xml";
+        private const string DefaultFilename = @"Config\KeyboardManiac.settings.xml";
         private const int MonitorInterval = 1000;
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(XmlFileEngineConfigurator));
@@ -60,11 +59,16 @@ namespace KeyboardManiac.Core.Config
             Configure(filename);
             if (File.Exists(filename))
             {
-                Thread monitorThread = new Thread(ThreadMonitorFile);
-                monitorThread.IsBackground = true;
-                monitorThread.Name = "ConfigurationMonitorThread";
-                monitorThread.Start();
+                Watch();
             }
+        }
+
+        private void Watch()
+        {
+            Thread monitorThread = new Thread(ThreadMonitorFile);
+            monitorThread.IsBackground = true;
+            monitorThread.Name = "ConfigurationMonitorThread";
+            monitorThread.Start();
         }
 
         private void ThreadMonitorFile()
@@ -106,13 +110,7 @@ namespace KeyboardManiac.Core.Config
             Filename = filename;
             OnStatusChanged(new ItemEventArgs<string>(string.Format("Loading settings from {0}", filename)));
 
-            KeyboardManiacSettings settings;
-            XmlSerializer serializer = new XmlSerializer(typeof(KeyboardManiacSettings));
-            using (Stream stream = File.OpenRead(filename))
-            {
-                settings = (KeyboardManiacSettings)serializer.Deserialize(stream);
-            }
-
+            ApplicationDetails settings = new XmlSettingsSerialiser().Load(filename);
             Configure(settings);
             m_ConfigFileLastModified = File.GetLastWriteTime(filename);
         }

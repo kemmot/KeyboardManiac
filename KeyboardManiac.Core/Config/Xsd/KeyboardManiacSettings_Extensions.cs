@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace KeyboardManiac.Core.Config
+namespace KeyboardManiac.Core.Config.Xsd
 {
     partial class KeyboardManiacSettings
     {

@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 using KeyboardManiac.Core.Config;
 using KeyboardManiac.Sdk;
-using System.Collections.Generic;
-using System.Threading;
+
+using log4net;
 
 namespace KeyboardManiac.Core
 {
     public class GlobalHotKey : DisposableBase
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(GlobalHotKey));
+
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         
@@ -19,7 +23,7 @@ namespace KeyboardManiac.Core
 
         private readonly IntPtr m_Handle;
         private readonly IEngineHost m_Host;
-        private readonly List<KeyboardManiacSettingsHotkey> m_HotKeys = new List<KeyboardManiacSettingsHotkey>();
+        private readonly List<HotKeyDetails> m_HotKeys = new List<HotKeyDetails>();
 
 
         public GlobalHotKey(IEngineHost host)
@@ -32,13 +36,14 @@ namespace KeyboardManiac.Core
         public bool IsRegistered { get; private set; }
 
 
-        public void Add(KeyboardManiacSettingsHotkey hotkey)
+        public void Add(HotKeyDetails hotKey)
         {
             if (IsRegistered)
             {
                 throw new InvalidOperationException("Cannot alter hotkeys while existing ones are registered");
             }
-            m_HotKeys.Add(hotkey);
+
+            m_HotKeys.Add(hotKey);
         }
 
         public void Clear()
@@ -54,7 +59,7 @@ namespace KeyboardManiac.Core
         {
             if (IsRegistered)
             {
-                throw new InvalidOperationException("Hotkeys are already registered");
+                throw new InvalidOperationException("HotKeys are already registered");
             }
 
             ThreadStart del = delegate
@@ -65,15 +70,15 @@ namespace KeyboardManiac.Core
             m_Host.Invoke(del);
         }
 
-        private void Register(KeyboardManiacSettingsHotkey hotkey)
+        private void Register(HotKeyDetails hotKey)
         {
-            int id = GetId(hotkey);
-            bool succeeded = RegisterHotKey(m_Handle, id, Constants.GetCode(hotkey.modifier.ToString()), (int)Enum.Parse(typeof(Keys), hotkey.key));
+            int id = GetId(hotKey);
+            bool succeeded = RegisterHotKey(m_Handle, id, Constants.GetCode(hotKey.Modifier.ToString()), (int)Enum.Parse(typeof(Keys), hotKey.Key.ToString()));
             if (!succeeded)
             {
                 throw new Exception(string.Format(
                     "Failed to register global hotkey: {0}",
-                    hotkey));
+                    hotKey));
             }
         }
         
@@ -88,10 +93,10 @@ namespace KeyboardManiac.Core
         {
             if (!IsRegistered)
             {
-                throw new InvalidOperationException("Hotkeys are not registered");
+                Logger.WarnFormat("Attempt to unregister hotkeys when they are not registered");
             }
 
-            ThreadStart del = delegate()
+            ThreadStart del = delegate
             {
                 m_HotKeys.ForEach(Unregister);
                 IsRegistered = false;
@@ -99,21 +104,21 @@ namespace KeyboardManiac.Core
             m_Host.Invoke(del);
         }
 
-        private void Unregister(KeyboardManiacSettingsHotkey hotkey)
+        private void Unregister(HotKeyDetails hotKey)
         {
-            int id = GetId(hotkey);
+            int id = GetId(hotKey);
             bool success = UnregisterHotKey(m_Handle, id);
             if (!success)
             {
                 throw new Exception(string.Format(
                     "Failed to unregister global hotkey: {0}",
-                    hotkey));
+                    hotKey));
             }
         }
 
-        private int GetId(KeyboardManiacSettingsHotkey hotkey)
+        private int GetId(HotKeyDetails hotKey)
         {
-            return Constants.GetCode(hotkey.modifier.ToString()) ^ (int)Enum.Parse(typeof(Keys), hotkey.key) ^ m_Handle.ToInt32();
+            return Constants.GetCode(hotKey.Modifier.ToString()) ^ (int)Enum.Parse(typeof(Keys), hotKey.Key.ToString()) ^ m_Handle.ToInt32();
         }
 
 

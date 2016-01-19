@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 using log4net;
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
+using KeyboardManiac.Sdk.Search;
+
 using log4net;
 
 using KeyboardManiac.Sdk;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using KeyboardManiac.Sdk.Search;
+
 using log4net;
 
 namespace KeyboardManiac.Sdk

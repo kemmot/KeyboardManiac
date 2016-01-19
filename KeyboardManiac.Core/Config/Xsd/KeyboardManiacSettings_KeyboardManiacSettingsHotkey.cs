@@ -1,4 +1,4 @@
-﻿namespace KeyboardManiac.Core.Config
+﻿namespace KeyboardManiac.Core.Config.Xsd
 {
     partial class KeyboardManiacSettingsHotkey
     {

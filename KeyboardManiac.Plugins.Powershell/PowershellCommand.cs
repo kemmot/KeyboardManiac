@@ -28,28 +28,29 @@ namespace KeyboardManiac.Plugins.Powershell
             m_Runspace.Open();
             m_Runspace.SessionStateProxy.SetVariable("App", host);
         }
+
+        [Setting]
+        public string StartupScripts { get; set; }
         
         /// <summary>
         /// Allows this plugin to initialise itself.
         /// </summary>
-        /// <param name="node">The plugin specific setting node.</param>
-        protected override void DoInitialise(XmlNode node)
+        protected override void DoInitialise()
         {
-            base.DoInitialise(node);
+            base.DoInitialise();
 
-            foreach (XmlNode scriptNode in node.SelectNodes("StartupScript"))
+            foreach (string startupScript in StartupScripts.Split(';'))
             {
-                string scriptPath = scriptNode.Attributes["path"].Value;
                 try
                 {
                     Pipeline pipeline = m_Runspace.CreatePipeline();
-                    pipeline.Commands.AddScript(System.IO.File.ReadAllText(scriptPath));
+                    pipeline.Commands.AddScript(System.IO.File.ReadAllText(startupScript));
                     pipeline.Invoke();
-                    Logger.DebugFormat("Successfully run start-up script: {0}", scriptPath);
+                    Logger.DebugFormat("Successfully run start-up script: {0}", startupScript);
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorFormat("Failed running start-up script: {0}, {1}", scriptPath, ex);
+                    Logger.ErrorFormat("Failed running start-up script: {0}, {1}", startupScript, ex);
                 }
             }
         }

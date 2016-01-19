@@ -67,7 +67,7 @@
           </xs:complexType>
         </xs:element>
 
-        <xs:element name="Hotkeys">
+        <xs:element name="HotKeys">
           <xs:complexType>
             <xs:sequence>
 

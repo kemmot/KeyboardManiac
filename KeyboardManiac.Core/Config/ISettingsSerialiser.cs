@@ -10,6 +10,6 @@
         /// </summary>
         /// <param name="location">The location to load the settings from.</param>
         /// <returns>The loaded settings.</returns>
-        KeyboardManiacSettings Load(string location);
+        ApplicationDetails Load(string location);
     }
 }

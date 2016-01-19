@@ -46,23 +46,24 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CommandRequest.cs" />
-    <Compile Include="CommandPluginBase.cs" />
-    <Compile Include="CommandResult.cs" />
+    <Compile Include="Command\CommandRequest.cs" />
+    <Compile Include="Command\CommandPluginBase.cs" />
+    <Compile Include="Command\CommandResult.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="IEngineHost.cs" />
     <Compile Include="IPluginHost.cs" />
-    <Compile Include="ICommandPlugin.cs" />
-    <Compile Include="ISearchPlugin.cs" />
+    <Compile Include="Command\ICommandPlugin.cs" />
+    <Compile Include="Search\ISearchPlugin.cs" />
     <Compile Include="ItemEventArgs.cs" />
     <Compile Include="PluginBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchParameters.cs" />
-    <Compile Include="SearchPluginBase.cs" />
-    <Compile Include="SearchResultItem.cs" />
+    <Compile Include="Search\SearchParameters.cs" />
+    <Compile Include="Search\SearchPluginBase.cs" />
+    <Compile Include="Search\SearchResultItem.cs" />
     <Compile Include="PluginException.cs" />
+    <Compile Include="SettingAttribute.cs" />
     <Compile Include="SynchronizedList.cs" />
     <Compile Include="ThreadBase.cs" />
   </ItemGroup>

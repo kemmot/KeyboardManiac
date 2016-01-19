@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using System.Threading;
-using System.Xml;
 
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 using log4net;
 
@@ -28,14 +27,31 @@ namespace KeyboardManiac.Plugins.FileSystemSearch
         {
         }
 
+        [Setting]
         public string Folder { get; set; }
+
+        [Setting]
         private string[] Folders { get; set; }
+
+        [Setting]
         public int MaxFolderDepth { get; set; }
+
+        [Setting]
         public string IncludeFileMask { get; set; }
+
+        [Setting]
         private string[] IncludeFileMasks { get; set; }
+
+        [Setting]
         public bool IncludeFolders { get; set; }
+
+        [Setting]
         public bool IncludeHiddenItems { get; set; }
+
+        [Setting]
         public bool LogUnauthorizedAccessException { get; set; }
+
+        [Setting]
         public int SearchThreadCount { get; set; }
 
         override protected void DoSearch(CommandRequest parameters)
@@ -72,10 +88,12 @@ namespace KeyboardManiac.Plugins.FileSystemSearch
                 }
             }
         }
+
         void searchThread_ResultsFound(object sender, ItemEventArgs<List<SearchResultItem>> e)
         {
             OnResultsFound(e);
-        }        
+        }
+
         /// <summary>
         /// Allows a plugin to run post initialisation checks.
         /// </summary>
@@ -85,6 +103,11 @@ namespace KeyboardManiac.Plugins.FileSystemSearch
         protected override void PostInitialiseCheck()
         {
             base.PostInitialiseCheck();
+
+            if (Folder == null)
+            {
+                throw new Exception("Folder cannot be null");
+            }
 
             Folders = Folder.Split(';');
             foreach (string expandedFolder in Folders)
@@ -106,10 +129,12 @@ namespace KeyboardManiac.Plugins.FileSystemSearch
                 throw new Exception(message);
             }
         }
+
         //public void RaiseResultsFoundEvent(ItemEventArgs<List<SearchResultItem>> e)
         //{
         //    OnResultsFound(e);
         //}
+
         protected override void DoStop()
         {
             base.DoStop();

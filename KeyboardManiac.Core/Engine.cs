@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading;
 
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 using log4net;
 using log4net.Appender;
@@ -19,8 +20,8 @@ namespace KeyboardManiac.Core
     /// </summary>
     public class Engine : EngineBase
     {
-        private const string DefaultLogFile = "KeyboardManiac.default.log";
-        private const string Log4netConfigFilename = "KeyboardManiac.log4net.xml";
+        private const string DefaultLogFile = @"KeyboardManiac.default.log";
+        private const string Log4netConfigFilename = @"Config\KeyboardManiac.log4net.xml";
         private const int SearchThreadStopInterval = 100;
         private const string SynchronousAliasPrefix = "-";
 
@@ -63,6 +64,7 @@ namespace KeyboardManiac.Core
                 }
             }
         }
+
         override public GlobalHotKey HotKey { get { return m_HotKey; } }
 
         override public void ClearPlugins()
@@ -71,6 +73,7 @@ namespace KeyboardManiac.Core
             m_Plugins.Clear();
             m_SearchPlugins.Clear();
         }
+
         /// <summary>
         /// Initialises logging by loading the default log config file.
         /// </summary>
@@ -81,6 +84,7 @@ namespace KeyboardManiac.Core
                 Log4netConfigFilename);
             InitialiseLogging(filename);
         }
+
         /// <summary>
         /// Initialises logging by loading the specified log config file.
         /// </summary>
@@ -108,6 +112,7 @@ namespace KeyboardManiac.Core
                 throw new Exception("Failed initialising logging", ex);
             }
         }
+
         private void InitialiseDefaultLogging()
         {
             SimpleLayout layout = new SimpleLayout();
@@ -123,6 +128,7 @@ namespace KeyboardManiac.Core
 
             BasicConfigurator.Configure(appender);
         }
+
         /// <summary>
         /// Registers a command plugin with the engine.
         /// </summary>
@@ -133,6 +139,7 @@ namespace KeyboardManiac.Core
             m_Plugins.Add(plugin);
             Logger.DebugFormat("Command plugin registered: {0}", plugin);
         }
+
         /// <summary>
         /// Registers a search plugin with the engine.
         /// </summary>
@@ -187,6 +194,7 @@ namespace KeyboardManiac.Core
                 thread.Start(commandText);
             }
         }
+
         /// <summary>
         /// Runs the specified item.
         /// </summary>
@@ -275,6 +283,7 @@ namespace KeyboardManiac.Core
             }
             return command;
         }
+
         /// <summary>
         /// Starts a search.
         /// </summary>
@@ -382,7 +391,7 @@ namespace KeyboardManiac.Core
         /// <returns>True if the setting was found; false otherwise.</returns>
         override public bool TryGetGlobalSettingAsString(string settingName, out string settingValue)
         {
-            bool settingFound = Settings.GlobalSettings.TryGetValue(settingName, out settingValue);
+            bool settingFound = Settings.Global.TryGetValue(settingName, out settingValue);
             return settingFound;
         }
         #endregion

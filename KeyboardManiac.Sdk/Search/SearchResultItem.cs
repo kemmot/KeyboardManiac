@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace KeyboardManiac.Sdk
+﻿namespace KeyboardManiac.Sdk.Search
 {
     public class SearchResultItem
     {

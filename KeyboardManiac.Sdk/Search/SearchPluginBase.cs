@@ -4,7 +4,7 @@ using System.Threading;
 
 using log4net;
 
-namespace KeyboardManiac.Sdk
+namespace KeyboardManiac.Sdk.Search
 {
     /// <summary>
     /// A base class implementation of <see cref="ISearchPlugin"/> providing

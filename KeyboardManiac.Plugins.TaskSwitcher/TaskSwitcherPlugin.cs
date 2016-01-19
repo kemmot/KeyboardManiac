@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 namespace KeyboardManiac.Plugins.TaskSwitcher
 {

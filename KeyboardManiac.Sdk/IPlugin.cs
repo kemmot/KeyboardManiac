@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml;
+﻿using System.Collections.Generic;
 
 namespace KeyboardManiac.Sdk
 {
@@ -12,7 +11,7 @@ namespace KeyboardManiac.Sdk
         /// Gets or sets the name of this plugin.
         /// </summary>
         string Name { get; set; }
-
+        
         /// <summary>
         /// Gives the plugin an oportunity to handle the command text.
         /// </summary>
@@ -21,10 +20,16 @@ namespace KeyboardManiac.Sdk
         /// A result object with details on whether the plugin can handle the command.
         /// </returns>
         CommandRequest CanHandleCommand(string commandText);
+
         /// <summary>
         /// Allows this plugin to initialise itself.
         /// </summary>
-        /// <param name="node">The plugin specific setting node.</param>
-        void Initialise(XmlNode node);
+        void Initialise(Dictionary<string, string> settings);
+
+        /// <summary>
+        /// Allows a plugin to register an alias.
+        /// </summary>
+        /// <param name="alias">The alias to register.</param>
+        void RegisterAlias(string alias);
     }
 }

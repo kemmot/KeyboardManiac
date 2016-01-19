@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using KeyboardManiac.Core;
 using KeyboardManiac.Core.Config;
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 using log4net;
 

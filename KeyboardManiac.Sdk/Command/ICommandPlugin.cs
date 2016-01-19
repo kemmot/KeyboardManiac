@@ -1,5 +1,7 @@
 ﻿using System;
 
+using KeyboardManiac.Sdk.Search;
+
 namespace KeyboardManiac.Sdk
 {
     /// <summary>

@@ -13,7 +13,9 @@
     <maximumFileSize value="10MB" />
     <staticLogFileName value="true" />
     <layout type="log4net.Layout.PatternLayout">
-      <conversionPattern value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" />
+      <header value="&#13;&#10;[Application Started]&#13;&#10;" />
+      <footer value="[Application Stopped]&#13;&#10;" />
+      <conversionPattern value="%date|%thread|%-5level|%logger|%property{NDC}|%message%newline" />
     </layout>
   </appender>
 </log4net>

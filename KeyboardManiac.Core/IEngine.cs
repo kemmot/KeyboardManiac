@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using KeyboardManiac.Core.Config;
 using KeyboardManiac.Sdk;
+using KeyboardManiac.Sdk.Search;
 
 namespace KeyboardManiac.Core
 {
@@ -38,7 +39,7 @@ namespace KeyboardManiac.Core
         /// Gets the settings in use by this engine.
         /// Loaded during the <see cref="Initialise"/> method.
         /// </summary>
-        KeyboardManiacSettings Settings { get; set; }
+        ApplicationDetails Settings { get; set; }
 
         void ClearPlugins();
         /// <summary>

@@ -31,6 +31,7 @@ namespace KeyboardManiac.Sdk
         /// Gets the host for this plugin.
         /// </summary>
         protected IPluginHost Host { get { return m_Host; } }
+
         /// <summary>
         /// Gets or sets the name of this plugin.
         /// </summary>
@@ -74,51 +75,33 @@ namespace KeyboardManiac.Sdk
             result.MatchingAlias = matchingAlias;
             return result;
         }
+
         /// <summary>
         /// Allows a plugin to register an alias.
         /// </summary>
         /// <param name="alias">The alias to register.</param>
-        protected void RegisterAlias(string alias)
+        public void RegisterAlias(string alias)
         {
             m_Aliases.Add(alias);
+            Logger.Debug("Registered alias: " + alias);
         }
+
         /// <summary>
         /// Allows this plugin to initialise itself.
         /// </summary>
         /// <param name="node">The plugin specific setting node.</param>
-        public void Initialise(XmlNode node)
+        public void Initialise(Dictionary<string, string> settings)
         {
-            DoInitialiseAliases(node);
-            //DoInitialiseSettings(node);
-            InitialisePluginSettings(node);
-            DoInitialise(node);
+            InitialisePluginSettings(settings);
+            DoInitialise();
             PostInitialiseCheck();
         }
-        /// <summary>
-        /// Parses standard alias nodes from the plugin configuration node.
-        /// </summary>
-        /// <param name="node">The node to parse.</param>
-        virtual protected void DoInitialiseAliases(XmlNode node)
-        {
-            foreach (XmlNode aliasNode in node.SelectNodes("Alias"))
-            {
-                string aliasName = aliasNode.Attributes["name"].Value;
-                RegisterAlias(aliasName);
-            }
-        }
-        private void InitialisePluginSettings(XmlNode node)
-        {
-            Dictionary<string, string> pluginSettings = new Dictionary<string, string>();
-            foreach (XmlNode settingNode in node.SelectNodes("Setting"))
-            {
-                string settingName = settingNode.Attributes["key"].Value;
-                string settingValue = settingNode.Attributes["value"].Value;
-                pluginSettings[settingName] = settingValue;
-            }
 
+        private void InitialisePluginSettings(Dictionary<string, string> settings)
+        {
             foreach (PropertyInfo property in GetType().GetProperties())
             {
-                string settingValueString = GetPluginSettingValue(property.Name, pluginSettings);
+                string settingValueString = GetPluginSettingValue(property.Name, settings);
                 if (!string.IsNullOrEmpty(settingValueString))
                 {
                     SetPluginProperty(property, settingValueString);
@@ -129,19 +112,20 @@ namespace KeyboardManiac.Sdk
                 }
             }
 
-            foreach (string settingName in pluginSettings.Keys)
+            foreach (string settingName in settings.Keys)
             {
-                string settingValue = pluginSettings[settingName];
-                if (DoInitialiseSetting(settingName, settingValue))
-                {
-                    Logger.DebugFormat("Setting value set {0}={1}", settingName, settingValue);
-                }
-                else
-                {
+                string settingValue = settings[settingName];
+                //if (DoInitialiseSetting(settingName, settingValue))
+                //{
+                //    Logger.DebugFormat("Setting value set {0}={1}", settingName, settingValue);
+                //}
+                //else
+                //{
                     Logger.WarnFormat("Setting value not handled: {0}={1}", settingName, settingValue);
-                }
+                //}
             }
         }
+
         private string GetPluginSettingValue(string name, Dictionary<string, string> pluginSettings)
         {
             string settingValueString;
@@ -155,6 +139,7 @@ namespace KeyboardManiac.Sdk
             }
             return settingValueString;
         }
+
         private void SetPluginProperty(PropertyInfo property, string settingValueString)
         {
             try
@@ -190,24 +175,27 @@ namespace KeyboardManiac.Sdk
                     ex);
             }
         }
-        /// <summary>
-        /// Allows a plugin to handle parsed settings.
-        /// </summary>
-        /// <param name="settingName">The name of the setting to handle.</param>
-        /// <param name="settingValue">The value of the setting to handle.</param>
-        /// <returns>True if the setting was handled; false otherwise.</returns>
-        virtual protected bool DoInitialiseSetting(string settingName, string settingValue)
-        {
-            return false;
-        }
+
+        ///// <summary>
+        ///// Allows a plugin to handle parsed settings.
+        ///// </summary>
+        ///// <param name="settingName">The name of the setting to handle.</param>
+        ///// <param name="settingValue">The value of the setting to handle.</param>
+        ///// <returns>True if the setting was handled; false otherwise.</returns>
+        //virtual protected bool DoInitialiseSetting(string settingName, string settingValue)
+        //{
+        //    return false;
+        //}
+
         /// <summary>
         /// Allows this plugin to initialise itself.
         /// </summary>
         /// <param name="node">The plugin specific setting node.</param>
-        virtual protected void DoInitialise(XmlNode node)
+        virtual protected void DoInitialise()
         {
             // do nothing
         }
+
         /// <summary>
         /// Allows a plugin to run post initialisation checks.
         /// </summary>
@@ -218,6 +206,7 @@ namespace KeyboardManiac.Sdk
         {
             // do nothing
         }
+
         /// <summary>
         /// Returns this object as a string.
         /// </summary>
