@@ -51,21 +51,21 @@
       <Setting key="ScoreAdjustment" value="200" />
       <Setting key="MaxFolderDepth" value="-1" />
     </Plugin>
-
-    <!--
     <Plugin typeId="5" name="My documents search">
       <Setting key="SpecialFolder" value="MyDocuments" />
       <Setting key="IncludeFileMask" value="*" />
-    </Plugin>
-    <Plugin typeId="5" name="Install programs search">
-      <Setting key="SpecialFolder" value="ProgramFiles" />
-      <Setting key="IncludeFileMask" value="*.exe" />
-      <Setting key="ScoreAdjustment" value="100" />
     </Plugin>
     <Plugin typeId="5" name="Shortcut search">
       <Setting key="SpecialFolder" value="Recent;Favorites" />
       <Setting key="IncludeFileMask" value="*.lnk" />
       <Setting key="ScoreAdjustment" value="50" />
+    </Plugin>
+
+    <!--
+    <Plugin typeId="5" name="Install programs search">
+      <Setting key="SpecialFolder" value="ProgramFiles" />
+      <Setting key="IncludeFileMask" value="*.exe" />
+      <Setting key="ScoreAdjustment" value="100" />
     </Plugin>
     -->
 
