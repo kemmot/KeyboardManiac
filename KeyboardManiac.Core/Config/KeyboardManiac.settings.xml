@@ -14,11 +14,12 @@
     <Setting key="UseClipboardForCommandText"  value="False" />
   </Gui>
   <HotKeys>
-    <HotKey key="End" modifier="CTRL" />
+    <!--<HotKey key="End" modifier="CTRL" />-->
+    <HotKey key="Break" />
   </HotKeys>
   <PluginTypes>
-    <PluginType id="1" class="KeyboardManiac.Plugins.Powershell.PowershellCommand, KeyboardManiac.Plugins.Powershell" />
-    <PluginType id="2" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
+    <PluginType id="1" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
+    <PluginType id="2" class="KeyboardManiac.Plugins.Powershell.PowershellCommand, KeyboardManiac.Plugins.Powershell" />
     <PluginType id="3" class="KeyboardManiac.Plugins.FileSystemSearch.FileSystemSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <PluginType id="4" class="KeyboardManiac.Plugins.FileSystemSearch.FileSystemAbsoluteSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <!-- Possible value of SpecialFolderSearchPlugin.SpecialFolder:
@@ -35,11 +36,12 @@
     <PluginType id="7" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSwitcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
   </PluginTypes>
   <Plugins>
+    <Plugin typeId="1" />
+    <Plugin typeId="2" />
     <!--<Plugin typeId="3">
       <Setting key="Folder" value="<location>" />
       <Setting key="IncludeFileMask" value="*.snippet" />
     </Plugin>
-    <Plugin typeId="2" />
     <Plugin typeId="4" />
     
     ProgramFiles;ProgramFilesX86;System;SystemX86

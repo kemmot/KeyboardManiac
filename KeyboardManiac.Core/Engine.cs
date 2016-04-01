@@ -214,6 +214,7 @@ namespace KeyboardManiac.Core
         {
             CommandResult result = null;
 
+            Logger.DebugFormat("Checking {0} command plugin(s) for handler of command: {1}", m_CommandPlugins.Count, commandText);
             foreach (ICommandPlugin plugin in m_CommandPlugins)
             {
                 CommandRequest request = plugin.CanHandleCommand(commandText);
@@ -223,6 +224,10 @@ namespace KeyboardManiac.Core
                     SetStatus("Running command: {0}", plugin.Name);
                     result = plugin.Execute(request);                
                     break;
+                }
+                else
+                {
+                    Logger.DebugFormat("Command plugin {0} cannot handle command: {1}", plugin, commandText);
                 }
             }
 
