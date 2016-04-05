@@ -15,7 +15,7 @@
   </Gui>
   <HotKeys>
     <!--<HotKey key="End" modifier="CTRL" />-->
-    <HotKey key="Break" />
+    <HotKey key="Pause" />
   </HotKeys>
   <PluginTypes>
     <PluginType id="1" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
