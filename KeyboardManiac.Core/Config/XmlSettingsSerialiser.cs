@@ -71,8 +71,21 @@ namespace KeyboardManiac.Core.Config
             try
             {
                 Keys key = (Keys)Enum.Parse(typeof(Keys), hotkeyNode.Attributes["key"].Value);
-                string modifierString = hotkeyNode.Attributes["modifier"].Value;
-                int modifierCode = GlobalHotKey.Constants.GetCode(modifierString);
+                
+                string modifierString;
+                int modifierCode;
+                var modifierAttribute = hotkeyNode.SelectSingleNode("@modifier");
+                if (modifierAttribute != null)
+                {
+                    modifierString = modifierAttribute.Value;
+                    modifierCode = GlobalHotKey.Constants.GetCode(modifierString);
+                }
+                else
+                {
+                    modifierString = "[None]";
+                    modifierCode = 0;
+                }
+                
                 Logger.DebugFormat("Parsed hot key, key: {0}, modifier: {1} ({2})", key, modifierString, modifierCode);
                 return new HotKeyDetails(key, modifierCode);
             }

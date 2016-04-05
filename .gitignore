@@ -263,3 +263,15 @@
 /KeyboardManiac.Sdk/obj/Debug/KeyboardManiac.Plugins.ShellExecute.csprojResolveAssemblyReference.cache
 
 /.vs/KeyboardManiac/v14/.suo
+
+/KeyboardManiac.Core/bin/Release/Config/KeyboardManiac.log4net.xml
+/KeyboardManiac.Core/bin/Release/Config/KeyboardManiac.settings.xml
+/KeyboardManiac.Core/bin/Release/Gallio.XmlSerializers.dll
+/KeyboardManiac.Core/bin/Release/Gallio.dll
+/KeyboardManiac.Core/bin/Release/Gallio.pdb
+/KeyboardManiac.Core/bin/Release/Gallio.xml
+/KeyboardManiac.Core/bin/Release/MbUnit.dll
+/KeyboardManiac.Core/bin/Release/MbUnit.pdb
+/KeyboardManiac.Core/bin/Release/MbUnit.xml
+/KeyboardManiac.Gui/bin/Release/Config/KeyboardManiac.log4net.xml
+/KeyboardManiac.Gui/bin/Release/Config/KeyboardManiac.settings.xml
