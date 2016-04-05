@@ -39,18 +39,21 @@ namespace KeyboardManiac.Plugins.Powershell
         {
             base.DoInitialise();
 
-            foreach (string startupScript in StartupScripts.Split(';'))
+            if (!string.IsNullOrEmpty(StartupScripts))
             {
-                try
+                foreach (string startupScript in StartupScripts.Split(';'))
                 {
-                    Pipeline pipeline = m_Runspace.CreatePipeline();
-                    pipeline.Commands.AddScript(System.IO.File.ReadAllText(startupScript));
-                    pipeline.Invoke();
-                    Logger.DebugFormat("Successfully run start-up script: {0}", startupScript);
-                }
-                catch (Exception ex)
-                {
-                    Logger.ErrorFormat("Failed running start-up script: {0}, {1}", startupScript, ex);
+                    try
+                    {
+                        Pipeline pipeline = m_Runspace.CreatePipeline();
+                        pipeline.Commands.AddScript(System.IO.File.ReadAllText(startupScript));
+                        pipeline.Invoke();
+                        Logger.DebugFormat("Successfully run start-up script: {0}", startupScript);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.ErrorFormat("Failed running start-up script: {0}, {1}", startupScript, ex);
+                    }
                 }
             }
         }
