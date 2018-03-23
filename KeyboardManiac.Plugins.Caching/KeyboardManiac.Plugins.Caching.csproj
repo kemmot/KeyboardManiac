@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6FE3AD87-97F9-4BEC-9986-8162E2686BA5}</ProjectGuid>
+    <ProjectGuid>{E57519DB-9573-41FE-88AF-138B77399809}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KeyboardManiac.Sdk</RootNamespace>
-    <AssemblyName>KeyboardManiac.Sdk</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>KeyboardManiac.Plugins.Caching</RootNamespace>
+    <AssemblyName>KeyboardManiac.Plugins.Caching</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdParty\log4net\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -40,35 +40,18 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="Command\CommandRequest.cs" />
-    <Compile Include="Command\CommandPluginBase.cs" />
-    <Compile Include="Command\CommandResult.cs" />
-    <Compile Include="DisposableBase.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="IEngineHost.cs" />
-    <Compile Include="IPluginHost.cs" />
-    <Compile Include="Command\ICommandPlugin.cs" />
-    <Compile Include="Search\ISearchPluginBase.cs" />
-    <Compile Include="Search\ISearchPluginDecorator.cs" />
-    <Compile Include="Search\SearchPluginDecorator.cs" />
-    <Compile Include="Search\ISearchPlugin.cs" />
-    <Compile Include="ItemEventArgs.cs" />
-    <Compile Include="PluginBase.cs" />
+    <Compile Include="CachingPluginDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\SearchParameters.cs" />
-    <Compile Include="Search\SearchPluginBase.cs" />
-    <Compile Include="Search\SearchResultItem.cs" />
-    <Compile Include="PluginException.cs" />
-    <Compile Include="SettingAttribute.cs" />
-    <Compile Include="SynchronizedList.cs" />
-    <Compile Include="ThreadBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KeyboardManiac.Sdk\KeyboardManiac.Sdk.csproj">
+      <Project>{6fe3ad87-97f9-4bec-9986-8162e2686ba5}</Project>
+      <Name>KeyboardManiac.Sdk</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

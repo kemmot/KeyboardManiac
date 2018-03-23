@@ -32,7 +32,7 @@ namespace KeyboardManiac.Core
         private readonly GlobalHotKey m_HotKey;
         private readonly List<IPlugin> m_Plugins = new List<IPlugin>();
         private readonly SynchronizedList<SearchResultItem> m_Results = new SynchronizedList<SearchResultItem>();
-        private readonly List<ISearchPlugin> m_SearchPlugins = new List<ISearchPlugin>();
+        private readonly List<ISearchPluginBase> m_SearchPlugins = new List<ISearchPluginBase>();
         private SearchThread m_SearchThread;
 
 
@@ -144,7 +144,7 @@ namespace KeyboardManiac.Core
         /// Registers a search plugin with the engine.
         /// </summary>
         /// <param name="plugin">The plugin to register.</param>
-        override public void RegisterPlugin(ISearchPlugin plugin)
+        override public void RegisterPlugin(ISearchPluginBase plugin)
         {
             plugin.ResultsFound += plugin_ResultsFound;
             m_SearchPlugins.Add(plugin);
@@ -262,7 +262,13 @@ namespace KeyboardManiac.Core
             foreach (ICommandPlugin commandPlugin in m_CommandPlugins)
             {
                 IDisposable disposable = commandPlugin as IDisposable;
-                if (disposable != null) disposable.Dispose();
+                disposable?.Dispose();
+            }
+
+            foreach (ISearchPluginBase searchPlugin in m_SearchPlugins)
+            {
+                IDisposable disposable = searchPlugin as IDisposable;
+                disposable?.Dispose();
             }
 
             m_HotKey.Dispose();

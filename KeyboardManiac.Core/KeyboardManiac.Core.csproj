@@ -52,6 +52,7 @@
     <Compile Include="Config\AliasDetails.cs" />
     <Compile Include="Config\GlobalDetails.cs" />
     <Compile Include="Config\HotKeyDetails.cs" />
+    <Compile Include="Config\KnownSettingName.cs" />
     <Compile Include="Config\Setting.cs" />
     <Compile Include="Config\SettingsCollection.cs" />
     <Compile Include="Config\SettingScopes.cs" />

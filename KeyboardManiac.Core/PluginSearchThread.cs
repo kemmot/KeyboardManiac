@@ -13,10 +13,10 @@ namespace KeyboardManiac.Core
     public class PluginSearchThread : ThreadBase
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(PluginSearchThread));
-        private readonly ISearchPlugin m_Plugin;
+        private readonly ISearchPluginBase m_Plugin;
         private readonly CommandRequest m_Request;
 
-        public PluginSearchThread(ISearchPlugin plugin, CommandRequest request)
+        public PluginSearchThread(ISearchPluginBase plugin, CommandRequest request)
         {
             m_Plugin = plugin;
             m_Request = request;

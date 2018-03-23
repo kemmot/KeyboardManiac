@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KeyboardManiac.Gui</RootNamespace>
     <AssemblyName>KeyboardManiac.Gui</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
@@ -118,6 +120,10 @@
     <ProjectReference Include="..\KeyboardManiac.Core\KeyboardManiac.Core.csproj">
       <Project>{083BF676-7A1C-4029-8E81-45AC5C8AC026}</Project>
       <Name>KeyboardManiac.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Plugins.Caching\KeyboardManiac.Plugins.Caching.csproj">
+      <Project>{e57519db-9573-41fe-88af-138b77399809}</Project>
+      <Name>KeyboardManiac.Plugins.Caching</Name>
     </ProjectReference>
     <ProjectReference Include="..\KeyboardManiac.Plugins.FileSystemSearch\KeyboardManiac.Plugins.FileSystemSearch.csproj">
       <Project>{6F7FB0BC-BA88-40E6-AED2-7CD57FE90A93}</Project>

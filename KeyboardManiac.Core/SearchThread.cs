@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 using KeyboardManiac.Sdk;
 using KeyboardManiac.Sdk.Search;
@@ -27,7 +24,7 @@ namespace KeyboardManiac.Core
 
         protected override void InnerStart()
         {
-            List<KeyValuePair<ISearchPlugin, CommandRequest>> pluginsToUse = FindSearchPlugins(m_Request);
+            var pluginsToUse = FindSearchPlugins(m_Request);
             if (pluginsToUse.Count > 0)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
@@ -45,10 +42,10 @@ namespace KeyboardManiac.Core
             }
         }
 
-        private List<KeyValuePair<ISearchPlugin, CommandRequest>> FindSearchPlugins(CommandRequest parameters)
+        private List<KeyValuePair<ISearchPluginBase, CommandRequest>> FindSearchPlugins(CommandRequest parameters)
         {
-            List<KeyValuePair<ISearchPlugin, CommandRequest>> compatibleSearchPlugins = new List<KeyValuePair<ISearchPlugin, CommandRequest>>();
-            List<KeyValuePair<ISearchPlugin, CommandRequest>> matchingSearchPlugins = new List<KeyValuePair<ISearchPlugin, CommandRequest>>();
+            var compatibleSearchPlugins = new List<KeyValuePair<ISearchPluginBase, CommandRequest>>();
+            var matchingSearchPlugins = new List<KeyValuePair<ISearchPluginBase, CommandRequest>>();
             int compatiblePluginCount = 0;
             int matchingPluginCount = 0;
 
@@ -61,26 +58,26 @@ namespace KeyboardManiac.Core
                     if (string.IsNullOrEmpty(request.MatchingAlias))
                     {
                         compatiblePluginCount++;
-                        ISearchPlugin searchPlugin = plugin as ISearchPlugin;
+                        var searchPlugin = plugin as ISearchPluginBase;
                         if (searchPlugin != null)
                         {
-                            compatibleSearchPlugins.Add(new KeyValuePair<ISearchPlugin, CommandRequest>(searchPlugin, request));
+                            compatibleSearchPlugins.Add(new KeyValuePair<ISearchPluginBase, CommandRequest>(searchPlugin, request));
                         }
                     }
                     else
                     {
                         matchingPluginCount++;
-                        ISearchPlugin searchPlugin = plugin as ISearchPlugin;
+                        var searchPlugin = plugin as ISearchPluginBase;
                         if (searchPlugin != null)
                         {
-                            matchingSearchPlugins.Add(new KeyValuePair<ISearchPlugin, CommandRequest>(searchPlugin, request));
+                            matchingSearchPlugins.Add(new KeyValuePair<ISearchPluginBase, CommandRequest>(searchPlugin, request));
                         }
                     }
                 }
             }
 
             // decide which plugins to use, matching are better than compatible
-            List<KeyValuePair<ISearchPlugin, CommandRequest>> pluginsToUse;
+            List<KeyValuePair<ISearchPluginBase, CommandRequest>> pluginsToUse;
             if (matchingPluginCount > 0)
             {
                 pluginsToUse = matchingSearchPlugins;
@@ -92,12 +89,12 @@ namespace KeyboardManiac.Core
             return pluginsToUse;
         }
 
-        private void StartPluginSearch(List<KeyValuePair<ISearchPlugin, CommandRequest>> pluginsToUse)
+        private void StartPluginSearch(List<KeyValuePair<ISearchPluginBase, CommandRequest>> pluginsToUse)
         {
             m_SearchPluginThreads = new List<PluginSearchThread>();
             for (int pluginIndex = 0; pluginIndex < pluginsToUse.Count; pluginIndex++)
             {
-                KeyValuePair<ISearchPlugin, CommandRequest> pluginRequest = pluginsToUse[pluginIndex];
+                KeyValuePair<ISearchPluginBase, CommandRequest> pluginRequest = pluginsToUse[pluginIndex];
                 string context = string.Format(
                     "{0}/{1}: {2}",
                     pluginIndex + 1,
@@ -117,7 +114,7 @@ namespace KeyboardManiac.Core
             {
                 foreach (IPlugin plugin in m_Plugins)
                 {
-                    ISearchPlugin searchPlugin = plugin as ISearchPlugin;
+                    var searchPlugin = plugin as ISearchPluginBase;
                     if (searchPlugin != null)
                     {
                         searchPlugin.Stop();

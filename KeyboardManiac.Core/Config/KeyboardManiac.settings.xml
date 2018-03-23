@@ -15,7 +15,7 @@
   </Gui>
   <HotKeys>
     <!--<HotKey key="End" modifier="CTRL" />-->
-    <HotKey key="Pause" />
+    <!--<HotKey key="F12" />-->
   </HotKeys>
   <PluginTypes>
     <PluginType id="1" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
@@ -34,19 +34,24 @@
     <PluginType id="5" class="KeyboardManiac.Plugins.FileSystemSearch.SpecialFolderSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <PluginType id="6" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSearcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
     <PluginType id="7" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSwitcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
+    <PluginType id="cache" class="KeyboardManiac.Plugins.Caching.CachingPluginDecorator, KeyboardManiac.Plugins.Caching" />
   </PluginTypes>
   <Plugins>
+    <!--
     <Plugin typeId="1" />
     <Plugin typeId="2" />
-    <!--<Plugin typeId="3">
-      <Setting key="Folder" value="<location>" />
-      <Setting key="IncludeFileMask" value="*.snippet" />
+    -->
+    <Plugin typeId="3" name="DgcInterim Solutions">
+      <Setting key="Folder" value="D:\wc\cubic\DgcInterim\BackOffice\CtsFramework\_Solutions;D:\wc\cubic\DgcInterim\BackOffice\Dgc\_Solutions" />
+      <Setting key="IncludeFileMask" value="*.sln" />
+      <Setting key="Decorators" value="cache" />
     </Plugin>
-    <Plugin typeId="4" />
-    
+    <!--
+    <Plugin typeId="4" />    
     ProgramFiles;ProgramFilesX86;System;SystemX86
     -->
 
+    <!--
     <Plugin typeId="5" name="Shortcut search">
       <Setting key="SpecialFolder" value="StartMenu;CommonStartMenu" />
       <Setting key="IncludeFileMask" value="*.lnk;*.exe" />
@@ -62,6 +67,7 @@
       <Setting key="IncludeFileMask" value="*.lnk" />
       <Setting key="ScoreAdjustment" value="50" />
     </Plugin>
+    -->
 
     <!--
     <Plugin typeId="5" name="Install programs search">

@@ -26,6 +26,7 @@ namespace KeyboardManiac.Core.Config
             ApplicationDetails settings = new ApplicationDetails();
             if (File.Exists(filename))
             {
+                Logger.InfoFormat("Settings file loaded from file: {0}", filename);
                 XmlDocument doc = new XmlDocument();
                 doc.Load(filename);
                 ParseGlobalSettings(doc, settings);

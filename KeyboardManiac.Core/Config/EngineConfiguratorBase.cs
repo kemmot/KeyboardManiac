@@ -98,7 +98,7 @@ namespace KeyboardManiac.Core.Config
         {
             Type pluginType = GetPluginType(settings, pluginDetails);
             Logger.Debug("Found plugin type: " + pluginType.FullName);
-            IPlugin plugin = GetPluginInstance(pluginType);
+            IPlugin plugin = GetNonDecoratorPluginInstance(pluginType);
             Logger.Debug("Created plugin instance");
 
             plugin.Name = string.IsNullOrEmpty(pluginDetails.Name)
@@ -136,7 +136,7 @@ namespace KeyboardManiac.Core.Config
                 globalSettingsAdded);
 
             plugin.Initialise(pluginSettings);
-
+            
             if (plugin is ICommandPlugin)
             {
                 ICommandPlugin commandPlugin = (ICommandPlugin)plugin;
@@ -144,7 +144,29 @@ namespace KeyboardManiac.Core.Config
             }
             else if (plugin is ISearchPlugin)
             {
-                ISearchPlugin searchPlugin = (ISearchPlugin)plugin;
+                ISearchPluginBase searchPlugin = (ISearchPlugin)plugin;
+
+                string decoratorsString;
+                if (pluginSettings.TryGetValue(KnownSettingName.Decorators, out decoratorsString))
+                {
+                    var decoratorIds = decoratorsString.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var decoratorId in decoratorIds)
+                    {
+                        Type searchDecoratorType = GetPluginType(settings, decoratorId);
+                        Logger.DebugFormat("Found decorator plugin type: {0}", searchDecoratorType.FullName);
+                        IPlugin searchDecoratorPluginObject = GetDecoratorPluginInstance(searchDecoratorType, searchPlugin);
+                        Logger.DebugFormat("Created decorator plugin instance: {0}", searchDecoratorPluginObject);
+
+                        ISearchPluginDecorator searchDecoratorPlugin = searchDecoratorPluginObject as ISearchPluginDecorator;
+                        if (searchDecoratorPlugin == null)
+                        {
+                            Logger.WarnFormat("Decorator is not of correct type: {0}, expected {1}", searchDecoratorPluginObject.GetType().FullName, typeof(ISearchPluginDecorator).FullName);
+                        }
+
+                        searchPlugin = searchDecoratorPlugin;
+                    }
+                }
+
                 m_Engine.RegisterPlugin(searchPlugin);
             }
             else
@@ -157,13 +179,18 @@ namespace KeyboardManiac.Core.Config
 
         private Type GetPluginType(ApplicationDetails settings, PluginDetails pluginDetails)
         {
+            return GetPluginType(settings, pluginDetails.PluginTypeId);
+        }
+
+        private Type GetPluginType(ApplicationDetails settings, string pluginTypeId)
+        {
             Type pluginType;
             try
             {
                 PluginTypeDetails pluginTypeDetails;
-                if (!settings.TryGetPluginType(pluginDetails.PluginTypeId, out pluginTypeDetails))
+                if (!settings.TryGetPluginType(pluginTypeId, out pluginTypeDetails))
                 {
-                    throw new Exception("Plugin type could not be found: " + pluginDetails.PluginTypeId);
+                    throw new Exception("Plugin type could not be found: " + pluginTypeId);
                 }
 
                 pluginType = Type.GetType(pluginTypeDetails.ClassName, true, true);
@@ -176,12 +203,22 @@ namespace KeyboardManiac.Core.Config
             return pluginType;
         }
 
-        private IPlugin GetPluginInstance(Type pluginType)
+        private IPlugin GetDecoratorPluginInstance(Type pluginType, IPlugin pluginToDecorate)
+        {
+            return GetPluginInstance(pluginType, pluginToDecorate);
+        }
+
+        private IPlugin GetNonDecoratorPluginInstance(Type pluginType)
+        {
+            return GetPluginInstance(pluginType, m_Engine);
+        }
+
+        private IPlugin GetPluginInstance(Type pluginType, params object[] args)
         {
             object pluginObject;
             try
             {
-                pluginObject = Activator.CreateInstance(pluginType, m_Engine);
+                pluginObject = Activator.CreateInstance(pluginType, args);
             }
             catch (Exception ex)
             {

@@ -67,7 +67,7 @@ namespace KeyboardManiac.Core
         /// Registers a search plugin with the engine.
         /// </summary>
         /// <param name="plugin">The plugin to register.</param>
-        void RegisterPlugin(ISearchPlugin plugin);
+        void RegisterPlugin(ISearchPluginBase plugin);
         /// <summary>
         /// Runs the specified command text.
         /// </summary>
