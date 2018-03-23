@@ -11,6 +11,12 @@ namespace KeyboardManiac.Core.Config
         }
 
         public Keys Key { get; set; }
+
         public int Modifier { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}-{1}", Modifier, Key);
+        }
     }
 }

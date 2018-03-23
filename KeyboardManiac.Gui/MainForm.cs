@@ -95,6 +95,7 @@ namespace KeyboardManiac.Gui
 
         private void ThreadInitialise()
         {
+            bool successful = false;
             try
             {
                 SetStatus("Initialising logging...");
@@ -108,12 +109,18 @@ namespace KeyboardManiac.Gui
                 m_Engine.StatusChanged += m_Engine_StatusChanged;
 
                 m_Configurator.ConfigureAndWatch();
-                
+
                 SetStatus("Ready");
+                successful = true;
             }
             catch (Exception ex)
             {
                 HandleException(ex);
+                successful = false;
+            }
+            finally
+            {
+                SetStatus("Initialised engine {0}", successful ? "successfully" : "unsuccessfully");
             }
         }
 
@@ -315,10 +322,17 @@ namespace KeyboardManiac.Gui
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            IDisposable disposable = m_Engine as IDisposable;
-            if (disposable != null)
+            try
             {
-                disposable.Dispose();
+                IDisposable disposable = m_Engine as IDisposable;
+                if (disposable != null)
+                {
+                    disposable.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Failed to dispose engine", ex);
             }
         }
 

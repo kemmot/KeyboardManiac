@@ -24,6 +24,7 @@ namespace KeyboardManiac.Core
         private readonly IntPtr m_Handle;
         private readonly IEngineHost m_Host;
         private readonly List<HotKeyDetails> m_HotKeys = new List<HotKeyDetails>();
+        private readonly List<HotKeyDetails> m_RegisteredHotKeys = new List<HotKeyDetails>();
 
 
         public GlobalHotKey(IEngineHost host)
@@ -33,8 +34,7 @@ namespace KeyboardManiac.Core
         }
 
 
-        public bool IsRegistered { get; private set; }
-
+        public bool IsRegistered => m_RegisteredHotKeys.Count > 0;
 
         public void Add(HotKeyDetails hotKey)
         {
@@ -65,7 +65,6 @@ namespace KeyboardManiac.Core
             ThreadStart del = delegate
             {
                 m_HotKeys.ForEach(Register);
-                IsRegistered = true;
             };
             m_Host.Invoke(del);
         }
@@ -79,6 +78,10 @@ namespace KeyboardManiac.Core
                 throw new Exception(string.Format(
                     "Failed to register global hotkey: {0}",
                     hotKey));
+            }
+            else
+            {
+                m_RegisteredHotKeys.Add(hotKey);
             }
         }
         
@@ -95,13 +98,19 @@ namespace KeyboardManiac.Core
             {
                 Logger.WarnFormat("Attempt to unregister hotkeys when they are not registered");
             }
-
-            ThreadStart del = delegate
+            else
             {
-                m_HotKeys.ForEach(Unregister);
-                IsRegistered = false;
-            };
-            m_Host.Invoke(del);
+                ThreadStart del = delegate
+                {
+                    for (int index = m_RegisteredHotKeys.Count - 1; index >= 0; index--)
+                    {
+                        var hotkey = m_RegisteredHotKeys[index];
+                        Unregister(hotkey);
+                        m_RegisteredHotKeys.RemoveAt(index);
+                    }
+                };
+                m_Host.Invoke(del);
+            }
         }
 
         private void Unregister(HotKeyDetails hotKey)

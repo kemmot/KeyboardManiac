@@ -258,14 +258,14 @@ namespace KeyboardManiac.Core
         protected override void DisposeManagedResources()
         {
             base.DisposeManagedResources();
-
-            m_HotKey.Dispose();
-
+            
             foreach (ICommandPlugin commandPlugin in m_CommandPlugins)
             {
                 IDisposable disposable = commandPlugin as IDisposable;
                 if (disposable != null) disposable.Dispose();
             }
+
+            m_HotKey.Dispose();
         }
 
         /// <summary>
