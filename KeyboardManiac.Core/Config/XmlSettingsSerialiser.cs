@@ -44,19 +44,42 @@ namespace KeyboardManiac.Core.Config
 
         private void ParseGlobalSettings(XmlDocument doc, ApplicationDetails settings)
         {
-            ParseSettings(doc.SelectSingleNode("KeyboardManiac/Global"), settings.Global, SettingScopes.Global);
+            const string xpath = "KeyboardManiac/Global";
+            XmlNode node = doc.SelectSingleNode(xpath);
+            if (node == null)
+            {
+                Logger.DebugFormat("No settings found at scope: {0}", xpath);
+                return;
+            }
+
+            ParseSettings(node, settings.Global, SettingScopes.Global);
         }
 
         private static void ParseGuiNode(XmlDocument doc, ApplicationDetails settings)
         {
-            ParseSettings(doc.SelectSingleNode("KeyboardManiac/Gui"), settings.Gui, SettingScopes.Gui);
+            const string xpath = "KeyboardManiac/Gui";
+            XmlNode node = doc.SelectSingleNode(xpath);
+            if (node == null)
+            {
+                Logger.DebugFormat("No settings found at scope: {0}", xpath);
+                return;
+            }
+
+            ParseSettings(node, settings.Gui, SettingScopes.Gui);
         }
 
         private static void ParseHotKeyNodes(XmlDocument doc, ApplicationDetails settings)
         {
             try
             {
-                foreach (XmlNode hotkeyNode in doc.SelectNodes("KeyboardManiac/HotKeys/HotKey"))
+                const string xpath = "KeyboardManiac/HotKeys/HotKey";
+                var nodes = doc.SelectNodes(xpath);
+                if (nodes.Count == 0)
+                {
+                    Logger.DebugFormat("No hotkeys found: {0}", xpath);
+                }
+
+                foreach (XmlNode hotkeyNode in nodes)
                 {
                     settings.HotKeys.Add(ParseHotKeyNode(hotkeyNode));
                 }
@@ -173,6 +196,9 @@ namespace KeyboardManiac.Core.Config
 
         private static void ParseSettings(XmlNode node, SettingsCollection settings, string scope)
         {
+            if (node == null) throw new ArgumentNullException("node");
+            if (settings == null) throw new ArgumentNullException("settings");
+
             foreach (XmlNode settingNode in node.SelectNodes("Setting"))
             {
                 try
