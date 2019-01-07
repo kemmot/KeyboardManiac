@@ -13,7 +13,7 @@ namespace KeyboardManiac.Sdk
         string Name { get; set; }
         
         /// <summary>
-        /// Gives the plugin an oportunity to handle the command text.
+        /// Gives the plugin an opportunity to handle the command text.
         /// </summary>
         /// <param name="commandText">The command text to assess.</param>
         /// <returns>
