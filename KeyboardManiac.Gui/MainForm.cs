@@ -408,7 +408,7 @@ namespace KeyboardManiac.Gui
             m_EnableHiding = false;
             try
             {
-                new AboutForm(m_Configurator).ShowDialog();
+                new AboutForm(m_Configurator, m_Engine).ShowDialog();
             }
             finally
             {

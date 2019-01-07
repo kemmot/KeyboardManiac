@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using KeyboardManiac.Core.Config;
 using KeyboardManiac.Sdk;
@@ -47,6 +48,8 @@ namespace KeyboardManiac.Core
         /// </summary>
         /// <returns>The previous command text.</returns>
         string GetCommandHistoryPrevious();
+
+        ReadOnlyCollection<IPlugin> GetPlugins();
         /// <summary>
         /// Initialises logging by loading the default log config file.
         /// </summary>

@@ -295,6 +295,11 @@ namespace KeyboardManiac.Core
             return command;
         }
 
+        override public ReadOnlyCollection<IPlugin> GetPlugins()
+        {
+            return new ReadOnlyCollection<IPlugin>(m_Plugins);
+        }
+
         /// <summary>
         /// Starts a search.
         /// </summary>

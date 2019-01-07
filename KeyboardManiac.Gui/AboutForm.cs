@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
+using KeyboardManiac.Core;
 using KeyboardManiac.Core.Config;
 using KeyboardManiac.Sdk;
 
@@ -18,11 +19,16 @@ namespace KeyboardManiac.Gui
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AboutForm));
         private readonly IEngineConfigurator m_Configurator;
+        private readonly IEngine m_Engine;
 
-        public AboutForm(IEngineConfigurator configurator)
+        public AboutForm(IEngineConfigurator configurator, IEngine engine)
             : this()
         {
+            if (configurator == null) throw new ArgumentNullException("configurator");
+            if (engine == null) throw new ArgumentNullException("engine");
+
             m_Configurator = configurator;
+            m_Engine = engine;
         }
 
         public AboutForm()
@@ -39,6 +45,15 @@ namespace KeyboardManiac.Gui
                 text.AppendLine("Settings loaded from: {0}", m_Configurator.ToString());
                 text.AppendLine();
             }
+
+            var plugins = m_Engine.GetPlugins();
+            text.AppendLine("{0} plugins", plugins.Count);
+            for (int index = 0; index < plugins.Count; index++)
+            {
+                IPlugin plugin = plugins[index];
+                text.AppendLine("Plugin {0}/{1}: {2}", index + 1, plugins.Count, plugin);
+            }
+            text.AppendLine();
 
             text.AppendLine(AppDomain.CurrentDomain.GetLoadedAssemblyText());
             text.AppendLine("Release Notes");
