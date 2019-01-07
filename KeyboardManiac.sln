@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardManiac.Gui", "KeyboardManiac.Gui\KeyboardManiac.Gui.csproj", "{802221CC-443C-45B7-AC60-67AD2DCE2884}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardManiac.Plugins.TaskSwitcher", "KeyboardManiac.Plugins.TaskSwitcher\KeyboardManiac.Plugins.TaskSwitcher.csproj", "{FEF5BFC9-32EF-4BA0-9DB7-4B1EC6878BF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardManiac.Plugins.Caching", "KeyboardManiac.Plugins.Caching\KeyboardManiac.Plugins.Caching.csproj", "{E57519DB-9573-41FE-88AF-138B77399809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardManiac.Plugins.Favorites", "KeyboardManiac.Plugins.Favorites\KeyboardManiac.Plugins.Favorites.csproj", "{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,8 +113,23 @@ Global
 		{E57519DB-9573-41FE-88AF-138B77399809}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E57519DB-9573-41FE-88AF-138B77399809}.Release|x86.ActiveCfg = Release|Any CPU
 		{E57519DB-9573-41FE-88AF-138B77399809}.Release|x86.Build.0 = Release|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD9A9D29-36E4-48E2-84BB-7DE9D93B1FD6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14AA1679-ADDC-4D5E-BE99-9F10C18A59E5}
 	EndGlobalSection
 EndGlobal

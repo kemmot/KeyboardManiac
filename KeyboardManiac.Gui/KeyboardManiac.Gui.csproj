@@ -125,6 +125,10 @@
       <Project>{e57519db-9573-41fe-88af-138b77399809}</Project>
       <Name>KeyboardManiac.Plugins.Caching</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KeyboardManiac.Plugins.Favorites\KeyboardManiac.Plugins.Favorites.csproj">
+      <Project>{ad9a9d29-36e4-48e2-84bb-7de9d93b1fd6}</Project>
+      <Name>KeyboardManiac.Plugins.Favorites</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KeyboardManiac.Plugins.FileSystemSearch\KeyboardManiac.Plugins.FileSystemSearch.csproj">
       <Project>{6F7FB0BC-BA88-40E6-AED2-7CD57FE90A93}</Project>
       <Name>KeyboardManiac.Plugins.FileSystemSearch</Name>

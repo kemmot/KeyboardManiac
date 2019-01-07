@@ -42,6 +42,7 @@
     <PluginType id="5" class="KeyboardManiac.Plugins.FileSystemSearch.SpecialFolderSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <PluginType id="6" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSearcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
     <PluginType id="7" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSwitcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
+    <PluginType id="8" class="KeyboardManiac.Plugins.Favorites.FavoritesSearchPlugin, KeyboardManiac.Plugins.Favorites" />
   </PluginTypes>
   <Plugins>
     <Plugin typeId="2" />
@@ -66,6 +67,9 @@
       <Setting key="Folder" value="D:\wc\cubic\DgcInterim\BackOffice\CtsFramework\_Solutions;D:\wc\cubic\DgcInterim\BackOffice\Dgc\_Solutions" />
       <Setting key="IncludeFileMask" value="*.sln" />
       <Setting key="Decorators" value="cache" />
+    </Plugin>
+    <Plugin typeId="8" name="Favorites">
+      <Setting key="MaxFavoriteCount" value="5" />
     </Plugin>
 
     <!--<Plugin typeId="5" name="My documents search">
