@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using KeyboardManiac.Sdk;
 using KeyboardManiac.Sdk.Search;
@@ -10,6 +11,8 @@ namespace KeyboardManiac.Plugins.Favorites
 {
     public class FavoritesSearchPlugin : SearchPluginBase, ICommandPlugin
     {
+        private const string ResultType_Favorite = "Favorite";
+
         private readonly static ILog Logger = LogManager.GetLogger(typeof(FavoritesSearchPlugin));
 
         private readonly List<SearchResultItem> m_Favorites = new List<SearchResultItem>();
@@ -40,17 +43,26 @@ namespace KeyboardManiac.Plugins.Favorites
             }
         }
 
-        public CommandRequest CanHandleCommand(SearchResultItem item)
+        /// <summary>
+        /// Gives the plugin an opportunity to handle the command text.
+        /// </summary>
+        /// <param name="commandText">The command text to assess.</param>
+        /// <returns>The command request.</returns>
+        override public CommandRequest CanHandleCommand(string commandText)
         {
-            m_Favorites.Insert(0, item);
-            Logger.InfoFormat("Favorite stored: {0}", item);
-            RemoveDuplicatesFavorites(item);
-            RemoveExcessFavorites();
+            if (File.Exists(commandText))
+            {
+                var item = new SearchResultItem(Path.GetFileName(commandText), ResultType_Favorite, commandText);
+                m_Favorites.Insert(0, item);
+                Logger.InfoFormat("Favorite stored: {0}", commandText);
+                RemoveDuplicatesFavorites(item);
+                RemoveExcessFavorites();
+            }
 
             CommandRequest result = new CommandRequest();
-            result.AliasCleansedCommandText = item.Path;
+            result.AliasCleansedCommandText = commandText;
             result.CanHandleCommand = false;
-            result.CommandText = item.Path;
+            result.CommandText = commandText;
             result.MatchingAlias = string.Empty;
             return result;
         }
