@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <KeyboardManiac>
+  <Gui>
+    <Setting key="MinimiseOnLosingFocus"       value="True" />
+    <Setting key="MinimiseToSystemTray"        value="True" />
+    <Setting key="UseClipboardForCommandText"  value="False" />
+  </Gui>
   <Global>
     <Setting key="MaxFolderDepth"                 value="2" />
     <Setting key="IncludeFolders"                 value="False" />
@@ -8,83 +13,98 @@
     <Setting key="SearchThreadCount"              value="10" />
     <Setting key="UseShortNames"                  value="True" />
   </Global>
-  <Gui>
-    <Setting key="MinimiseOnLosingFocus"       value="False" />
-    <Setting key="MinimiseToSystemTray"        value="False" />
-    <Setting key="UseClipboardForCommandText"  value="False" />
-  </Gui>
   <HotKeys>
-    <!--<HotKey key="End" modifier="CTRL" />-->
-    <!--<HotKey key="F12" />-->
+    <HotKey key="F3" modifier="" />
   </HotKeys>
   <PluginTypes>
-    <PluginType id="1" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
-    <PluginType id="2" class="KeyboardManiac.Plugins.Powershell.PowershellCommand, KeyboardManiac.Plugins.Powershell" />
+    <PluginType id="1" class="KeyboardManiac.Plugins.Powershell.PowershellCommand, KeyboardManiac.Plugins.Powershell" />
+    <PluginType id="2" class="KeyboardManiac.Plugins.ShellExecute.ShellExecuteCommand, KeyboardManiac.Plugins.ShellExecute" />
     <PluginType id="3" class="KeyboardManiac.Plugins.FileSystemSearch.FileSystemSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <PluginType id="4" class="KeyboardManiac.Plugins.FileSystemSearch.FileSystemAbsoluteSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <!-- Possible value of SpecialFolderSearchPlugin.SpecialFolder:
-        AdminTools, ApplicationDatam, CDBurning, CommonAdminTools, CommonApplicationData, CommonDesktopDirectory,
-        CommonDocuments, CommonMusic, CommonOemLinks, CommonPictures, CommonProgramFiles, CommonProgramFilesX86,
-        CommonPrograms, CommonStartMenu, CommonStartup, CommonTemplates, CommonVideos, Cookies, Desktop,
-        DesktopDirectory, Favorites, Fonts, History, InternetCache, LocalApplicationData, LocalizedResources, 
-        MyComputer, MyDocuments, MyMusic, MyPictures, MyVideos, NetworkShortcuts, Personal, PrinterShortcuts,
-        ProgramFiles, ProgramFilesX86, Programs, Recent, Resources, SendTo, StartMenu, Startup, System, SystemX86,
-        Templates, UserProfile, Windows
+        Desktop
+        Favorites
+        MyComputer
+        MyDocuments
+        MyMusic
+        MyPictures
+        MyVideos
+        ProgramFiles
+        ProgramFilesX86
+        Recent
+        SendTo
+        StartMenu
+        System
+        SystemX86
+        UserProfile
+        Windows
         -->
     <PluginType id="5" class="KeyboardManiac.Plugins.FileSystemSearch.SpecialFolderSearchPlugin, KeyboardManiac.Plugins.FileSystemSearch" />
     <PluginType id="6" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSearcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
     <PluginType id="7" class="KeyboardManiac.Plugins.TaskSwitcher.TaskSwitcherPlugin, KeyboardManiac.Plugins.TaskSwitcher" />
-    <PluginType id="cache" class="KeyboardManiac.Plugins.Caching.CachingPluginDecorator, KeyboardManiac.Plugins.Caching" />
   </PluginTypes>
   <Plugins>
-    <!--
-    <Plugin typeId="1" />
     <Plugin typeId="2" />
-    -->
+    <Plugin typeId="4" />
+    <Plugin typeId="5" name="Start menu search">
+      <Setting key="SpecialFolder" value="StartMenu" />
+      <Setting key="IncludeFileMask" value="*.lnk" />
+      <Setting key="ScoreAdjustment" value="100" />
+      <Setting key="MaxFolderDepth" value="3" />
+    </Plugin>
+    <Plugin typeId="3" name="Tools search">
+      <Setting key="Folder" value="D:\wc\Keb\Tools" />
+      <Setting key="IncludeFileMask" value="*.exe" />
+      <Setting key="ScoreAdjustment" value="100" />
+    </Plugin>
+    <Plugin typeId="3" name="CTS Framework search">
+      <Setting key="Folder" value="C:\Cubic\CtsFramework" />
+      <Setting key="IncludeFileMask" value="*.exe" />
+      <Setting key="ScoreAdjustment" value="100" />
+    </Plugin>
     <Plugin typeId="3" name="DgcInterim Solutions">
       <Setting key="Folder" value="D:\wc\cubic\DgcInterim\BackOffice\CtsFramework\_Solutions;D:\wc\cubic\DgcInterim\BackOffice\Dgc\_Solutions" />
       <Setting key="IncludeFileMask" value="*.sln" />
       <Setting key="Decorators" value="cache" />
     </Plugin>
-    <!--
-    <Plugin typeId="4" />    
-    ProgramFiles;ProgramFilesX86;System;SystemX86
-    -->
 
-    <!--
-    <Plugin typeId="5" name="Shortcut search">
-      <Setting key="SpecialFolder" value="StartMenu;CommonStartMenu" />
-      <Setting key="IncludeFileMask" value="*.lnk;*.exe" />
-      <Setting key="ScoreAdjustment" value="200" />
-      <Setting key="MaxFolderDepth" value="-1" />
-    </Plugin>
-    <Plugin typeId="5" name="My documents search">
+    <!--<Plugin typeId="5" name="My documents search">
       <Setting key="SpecialFolder" value="MyDocuments" />
       <Setting key="IncludeFileMask" value="*" />
+      <Setting key="UseShortNames" value="False" />
     </Plugin>
-    <Plugin typeId="5" name="Shortcut search">
-      <Setting key="SpecialFolder" value="Recent;Favorites" />
+    <Plugin typeId="5" name="Recent files search">
+      <Setting key="SpecialFolder" value="Recent" />
       <Setting key="IncludeFileMask" value="*.lnk" />
+    </Plugin>
+    <Plugin typeId="5" name="System search">
+      <Setting key="SpecialFolder" value="System" />
+      <Setting key="IncludeFileMask" value="*.exe" />
       <Setting key="ScoreAdjustment" value="50" />
     </Plugin>
-    -->
-
-    <!--
-    <Plugin typeId="5" name="Install programs search">
+    <Plugin typeId="5" name="SystemX86 search">
+      <Setting key="SpecialFolder" value="SystemX86" />
+      <Setting key="IncludeFileMask" value="*.exe" />
+      <Setting key="ScoreAdjustment" value="50" />
+    </Plugin>
+    <Plugin typeId="5" name="Program files search">
       <Setting key="SpecialFolder" value="ProgramFiles" />
       <Setting key="IncludeFileMask" value="*.exe" />
-      <Setting key="ScoreAdjustment" value="100" />
+      <Setting key="ScoreAdjustment" value="50" />
     </Plugin>
-    -->
-
-    <!--<Plugin typeId="6">
+    <Plugin typeId="5" name="Program files x86 search">
+      <Setting key="SpecialFolder" value="ProgramFilesX86" />
+      <Setting key="IncludeFileMask" value="*.exe" />
+      <Setting key="ScoreAdjustment" value="50" />
+    </Plugin>-->
+    <Plugin typeId="6">
       <Alias name="TS" />
     </Plugin>
     <Plugin typeId="7" />
     <Plugin typeId="1">
       <Alias name="PS" />
       <Alias name=">" />
-      <StartupScript path=<location>" />
-    </Plugin>-->
+      <StartupScript path="D:\wc\Keb\ToolsSource\Scripts\profile.ps1" />
+    </Plugin>
   </Plugins>
 </KeyboardManiac>
