@@ -297,6 +297,17 @@ namespace KeyboardManiac.Core
             m_HotKey.Dispose();
         }
 
+        override public List<string> GetCommandHistory(int maxItems)
+        {
+            var history = new List<string>(m_CommandHistory);
+            for (int index = 0; index < maxItems; index++)
+            {
+                history.Add(m_CommandHistory[m_CommandHistory.Count - index]);
+            }
+
+            return history;
+        }
+
         /// <summary>
         /// Gets the previous command text.
         /// </summary>

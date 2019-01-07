@@ -46,34 +46,11 @@ namespace KeyboardManiac.Gui
 
         void m_UpdateResultsTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            List<SearchResultItem> lastestResult = m_LastestResult;
+            List<SearchResultItem> latestResult = m_LastestResult;
 
             ThreadStart del = delegate()
             {
-                LvResults.BeginUpdate();
-                try
-                {
-                    LvResults.Items.Clear();
-                    if (lastestResult != null)
-                    {
-                        foreach (SearchResultItem item in lastestResult)
-                        {
-                            LvResults.Items.Add(new ResultListViewItem(item));
-                        }
-                    }
-
-                    var resizeStyle = LvResults.Items.Count > 0
-                            ? ColumnHeaderAutoResizeStyle.ColumnContent
-                            : ColumnHeaderAutoResizeStyle.HeaderSize;
-                    foreach (ColumnHeader column in LvResults.Columns)
-                    {
-                        column.AutoResize(resizeStyle);
-                    }
-                }
-                finally
-                {
-                    LvResults.EndUpdate();
-                }
+                DisplayResults(latestResult);
 
                 string status = m_SearchComplete ? "Search complete" : "Searching";
                 SetStatus("{0}, {1} results found", status, LvResults.Items.Count);
@@ -109,6 +86,8 @@ namespace KeyboardManiac.Gui
                 m_Engine.StatusChanged += m_Engine_StatusChanged;
 
                 m_Configurator.ConfigureAndWatch();
+
+                DisplayCommandHistory();
 
                 SetStatus("Ready");
                 successful = true;
@@ -430,6 +409,45 @@ namespace KeyboardManiac.Gui
             catch (Exception ex)
             {
                 HandleException(ex);
+            }
+        }
+
+        private void DisplayCommandHistory()
+        {
+            List<SearchResultItem> results = new List<SearchResultItem>();
+            foreach (string command in m_Engine.GetCommandHistory(5))
+            {
+                results.Add(new SearchResultItem(Path.GetFileName(command), "History", command));
+            }
+
+            DisplayResults(results);
+        }
+
+        private void DisplayResults(List<SearchResultItem> latestResult)
+        {
+            LvResults.BeginUpdate();
+            try
+            {
+                LvResults.Items.Clear();
+                if (latestResult != null)
+                {
+                    foreach (SearchResultItem item in latestResult)
+                    {
+                        LvResults.Items.Add(new ResultListViewItem(item));
+                    }
+                }
+
+                var resizeStyle = LvResults.Items.Count > 0
+                                      ? ColumnHeaderAutoResizeStyle.ColumnContent
+                                      : ColumnHeaderAutoResizeStyle.HeaderSize;
+                foreach (ColumnHeader column in LvResults.Columns)
+                {
+                    column.AutoResize(resizeStyle);
+                }
+            }
+            finally
+            {
+                LvResults.EndUpdate();
             }
         }
     }

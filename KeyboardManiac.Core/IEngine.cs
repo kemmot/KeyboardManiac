@@ -43,6 +43,8 @@ namespace KeyboardManiac.Core
         ApplicationDetails Settings { get; set; }
 
         void ClearPlugins();
+
+        List<string> GetCommandHistory(int maxItems);
         /// <summary>
         /// Gets the previous command text.
         /// </summary>
