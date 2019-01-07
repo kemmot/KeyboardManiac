@@ -35,7 +35,7 @@ namespace KeyboardManiac.Plugins.ShellExecute
             return new CommandResult() { Success = true, CommandText = commandRequest.AliasCleansedCommandText };
         }
         /// <summary>
-        /// Gives the plugin an oportunity to handle the command text.
+        /// Gives the plugin an opportunity to handle the command text.
         /// </summary>
         /// <param name="commandText">The command text to assess.</param>
         /// <returns>The command request.</returns>
