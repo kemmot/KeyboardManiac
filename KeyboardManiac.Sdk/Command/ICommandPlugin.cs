@@ -10,14 +10,6 @@ namespace KeyboardManiac.Sdk
     public interface ICommandPlugin : IPlugin
     {
         /// <summary>
-        /// Gives the plugin an opportunity to handle the command text.
-        /// </summary>
-        /// <param name="item">The item to assess.</param>
-        /// <returns>
-        /// A result object with details on whether the plugin can handle the command.
-        /// </returns>
-        CommandRequest CanHandleCommand(SearchResultItem item);
-        /// <summary>
         /// Executes the specified command text.
         /// </summary>
         /// <param name="commandRequest">The command request to execute.</param>

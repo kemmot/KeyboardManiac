@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -135,8 +136,13 @@ namespace KeyboardManiac.Core
         /// <param name="plugin">The plugin to register.</param>
         override public void RegisterPlugin(ICommandPlugin plugin)
         {
+            if (m_CommandPlugins.Contains(plugin))
+            {
+                throw new InvalidOperationException($"Command plugin already registered: {plugin}");
+            }
+
             m_CommandPlugins.Add(plugin);
-            m_Plugins.Add(plugin);
+            RegisterPlugin(plugin);
             Logger.DebugFormat("Command plugin registered: {0}", plugin);
         }
 
@@ -146,10 +152,23 @@ namespace KeyboardManiac.Core
         /// <param name="plugin">The plugin to register.</param>
         override public void RegisterPlugin(ISearchPluginBase plugin)
         {
+            if (m_SearchPlugins.Contains(plugin))
+            {
+                throw new InvalidOperationException($"Search plugin already registered: {plugin}");
+            }
+
             plugin.ResultsFound += plugin_ResultsFound;
             m_SearchPlugins.Add(plugin);
-            m_Plugins.Add(plugin);
+            RegisterPlugin(plugin);
             Logger.DebugFormat("Search plugin registered: {0}", plugin);
+        }
+
+        private void RegisterPlugin(IPlugin plugin)
+        {
+            if (!m_Plugins.Contains(plugin))
+            {
+                m_Plugins.Add(plugin);
+            }
         }
 
         private void plugin_ResultsFound(object sender, ItemEventArgs<List<SearchResultItem>> e)
@@ -212,7 +231,7 @@ namespace KeyboardManiac.Core
 
         private void ParseCommand(string commandText)
         {
-            CommandResult result = null;
+            var results = new List<CommandResult>();
 
             Logger.DebugFormat("Checking {0} command plugin(s) for handler of command: {1}", m_CommandPlugins.Count, commandText);
             foreach (ICommandPlugin plugin in m_CommandPlugins)
@@ -222,8 +241,8 @@ namespace KeyboardManiac.Core
                 {
                     CancelSearch();
                     SetStatus("Running command: {0}", plugin.Name);
-                    result = plugin.Execute(request);                
-                    break;
+                    var result = plugin.Execute(request);
+                    results.Add(result);
                 }
                 else
                 {
@@ -231,17 +250,21 @@ namespace KeyboardManiac.Core
                 }
             }
 
-            if (result == null)
+            if (results.Count == 0)
             {
                 SetStatus("Command not found");
-                result = new CommandResult();
+                var result = new CommandResult();
                 result.Success = false;
+                results.Add(result);
             }
 
             m_CommandHistory.Add(commandText);
             m_CommandHistoryPosition = m_CommandHistory.Count - 1;
 
-            OnCommandComplete(new ItemEventArgs<CommandResult>(result));
+            foreach (var result in results)
+            {
+                OnCommandComplete(new ItemEventArgs<CommandResult>(result));
+            }
         }
         
         private void SetStatus(string format, params object[] args)
@@ -411,5 +434,7 @@ namespace KeyboardManiac.Core
             return settingFound;
         }
         #endregion
+
+
     }  
 }

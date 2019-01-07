@@ -136,13 +136,17 @@ namespace KeyboardManiac.Core.Config
                 globalSettingsAdded);
 
             plugin.Initialise(pluginSettings);
-            
+
+            bool pluginRegistered = false;
+
             if (plugin is ICommandPlugin)
             {
                 ICommandPlugin commandPlugin = (ICommandPlugin)plugin;
                 m_Engine.RegisterPlugin(commandPlugin);
+                pluginRegistered = true;
             }
-            else if (plugin is ISearchPlugin)
+
+            if (plugin is ISearchPlugin)
             {
                 ISearchPluginBase searchPlugin = (ISearchPlugin)plugin;
 
@@ -168,8 +172,10 @@ namespace KeyboardManiac.Core.Config
                 }
 
                 m_Engine.RegisterPlugin(searchPlugin);
+                pluginRegistered = true;
             }
-            else
+
+            if (!pluginRegistered)
             {
                 Logger.WarnFormat(
                     "Plugin loaded of unknown plugin type: {0}",
